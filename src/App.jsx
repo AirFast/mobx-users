@@ -20,9 +20,12 @@ export const App = observer(() => {
   const handleToggleBlock = (user) => {
     user.toggleBlock();
   };
+
   const handleToggleEdited = (user) => {
     user.toggleEdited();
   };
+
+  const isInList = (userId) => store.list.map(({ id }) => id).includes(userId);
 
   return (
     <div className="container mx-auto p-4">
@@ -52,10 +55,7 @@ export const App = observer(() => {
                 </div>
                 <div className="flex gap-4">
                   <p className="text-sm text-gray-500">
-                    Added to list:{" "}
-                    {store.list.map(({ id }) => id).includes(user.id)
-                      ? "Yes"
-                      : "No"}
+                    Added to list: {isInList(user.id) ? "Yes" : "No"}
                   </p>
                   <p className="text-sm text-gray-500">
                     Blocked: {user.blocked ? "Yes" : "No"}
@@ -63,7 +63,7 @@ export const App = observer(() => {
                 </div>
               </div>
               <div className="flex flex-wrap gap-4">
-                {!store.list.map(({ id }) => id).includes(user.id) ? (
+                {!isInList(user.id) ? (
                   <button
                     className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded"
                     onClick={() => handleAddUserToList(user)}
