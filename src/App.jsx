@@ -45,7 +45,7 @@ export const App = observer(() => {
                     </button>
                   )}
 
-                  {!user.isEdited ? (
+                  {user.blocked || !user.isEdited ? (
                     <p className="text-lg font-semibold">{user.name}</p>
                   ) : (
                     <input
