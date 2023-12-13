@@ -82,13 +82,6 @@ export const App = observer(() => {
                       Remove from list
                     </button>
                   ))}
-
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handleToggleBlock(user)}
-                >
-                  {!user.blocked ? "Block" : "Unblock"}
-                </button>
                 {!user.blocked && (
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -97,6 +90,12 @@ export const App = observer(() => {
                     Remove
                   </button>
                 )}
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => handleToggleBlock(user)}
+                >
+                  {!user.blocked ? "Block" : "Unblock"}
+                </button>
               </div>
             </div>
           </li>
