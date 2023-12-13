@@ -36,12 +36,15 @@ export const App = observer(() => {
             <div className="flex justify-between gap-8 flex-col md:items-center md:flex-row">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4">
-                  <button
-                    className="bg-green-500 hover:bg-green-400 text-white text-sm font-bold py-1 px-2 rounded"
-                    onClick={() => handleToggleEdited(user)}
-                  >
-                    {!user.isEdited ? "Edit" : "Done"}
-                  </button>
+                  {!user.blocked && (
+                    <button
+                      className="bg-green-500 hover:bg-green-400 text-white text-sm font-bold py-1 px-2 rounded"
+                      onClick={() => handleToggleEdited(user)}
+                    >
+                      {!user.isEdited ? "Edit" : "Done"}
+                    </button>
+                  )}
+
                   {!user.isEdited ? (
                     <p className="text-lg font-semibold">{user.name}</p>
                   ) : (
@@ -63,21 +66,22 @@ export const App = observer(() => {
                 </div>
               </div>
               <div className="flex flex-wrap gap-4">
-                {!isInList(user.id) ? (
-                  <button
-                    className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleAddUserToList(user)}
-                  >
-                    Add to list
-                  </button>
-                ) : (
-                  <button
-                    className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleRemoveUserFromList(user.id)}
-                  >
-                    Remove from list
-                  </button>
-                )}
+                {!user.blocked &&
+                  (!isInList(user.id) ? (
+                    <button
+                      className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => handleAddUserToList(user)}
+                    >
+                      Add to list
+                    </button>
+                  ) : (
+                    <button
+                      className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => handleRemoveUserFromList(user.id)}
+                    >
+                      Remove from list
+                    </button>
+                  ))}
 
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -85,12 +89,14 @@ export const App = observer(() => {
                 >
                   {!user.blocked ? "Block" : "Unblock"}
                 </button>
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handleRemoveUser(user.id)}
-                >
-                  Remove
-                </button>
+                {!user.blocked && (
+                  <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    onClick={() => handleRemoveUser(user.id)}
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
             </div>
           </li>
